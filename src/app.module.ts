@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //import { DataSource } from 'typeorm';
+import { Cats2Controller } from './cats2/cats2.controller';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: true,
     }),
   ],
-  controllers: [AppController, CatsController],
+  controllers: [AppController, CatsController, Cats2Controller],
   providers: [AppService],
 })
 export class AppModule {

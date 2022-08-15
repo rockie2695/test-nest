@@ -5,6 +5,8 @@ import { CatsController } from './cats/cats.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
 //import { DataSource } from 'typeorm';
 import { Cats2Controller } from './cats2/cats2.controller';
+import { Cats3Service } from './cats3/cats3.service';
+import { Cats3Controller } from './cats3/cats3.controller';
 
 @Module({
   imports: [
@@ -19,8 +21,13 @@ import { Cats2Controller } from './cats2/cats2.controller';
       synchronize: true,
     }),
   ],
-  controllers: [AppController, CatsController, Cats2Controller],
-  providers: [AppService],
+  controllers: [
+    AppController,
+    CatsController,
+    Cats2Controller,
+    Cats3Controller,
+  ],
+  providers: [AppService, Cats3Service],
 })
 export class AppModule {
   //constructor(private dataSource: DataSource) {}

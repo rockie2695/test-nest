@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
@@ -8,6 +8,7 @@ import { Cats2Controller } from './cats2/cats2.controller';
 import { Cats3Service } from './cats3/cats3.service';
 import { Cats3Controller } from './cats3/cats3.controller';
 import { Cats3Module } from './cats3/cats3.module';
+import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
 @Module({
   imports: [
@@ -32,5 +33,11 @@ import { Cats3Module } from './cats3/cats3.module';
   providers: [AppService, Cats3Service],
 })
 export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer.apply(LoggerMiddleware).forRoutes('cats3');
+    //.forRoutes({ path: 'cats', method: RequestMethod.GET });
+    //forRoutes({ path: 'ab*cd', method: RequestMethod.ALL });
+    //.forRoutes(CatsController);
+  }
   //constructor(private dataSource: DataSource) {}
 }

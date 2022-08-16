@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Cats2Controller } from './cats2/cats2.controller';
 import { Cats3Service } from './cats3/cats3.service';
 import { Cats3Controller } from './cats3/cats3.controller';
+import { Cats3Module } from './cats3/cats3.module';
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { Cats3Controller } from './cats3/cats3.controller';
       entities: [],
       synchronize: true,
     }),
+    Cats3Module,
   ],
   controllers: [
     AppController,

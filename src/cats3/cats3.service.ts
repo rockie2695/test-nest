@@ -12,4 +12,8 @@ export class Cats3Service {
   findAll(): Cat[] {
     return this.cats;
   }
+
+  findOne(id: number): Cat {
+    return this.cats.find((cat) => cat.id === id);
+  }
 }

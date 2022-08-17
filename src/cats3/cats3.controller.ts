@@ -1,4 +1,6 @@
 //https://docs.nestjs.com/providers
+//https://docs.nestjs.com/exception-filters
+//https://docs.nestjs.com/pipes
 import {
   Controller,
   Get,
@@ -7,6 +9,9 @@ import {
   HttpException,
   HttpStatus,
   UseFilters,
+  Param,
+  ParseIntPipe,
+  Query,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cats3Service } from './cats3.service';
@@ -52,5 +57,27 @@ export class Cats3Controller {
   @UseFilters(new HttpExceptionFilter())
   async create5(@Body() createCatDto: CreateCatDto) {
     throw new ForbiddenException();
+  }
+
+  @Get('6')
+  //localhost:3000/cats3/6?id=1
+  async findOne6(@Query('id', ParseIntPipe) id: number) {
+    return this.catsService.findOne(id);
+  }
+  /*
+  @Get(':id')
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.catsService.findOne(id);
+  }
+*/
+  @Get(':id')
+  async findOne(
+    @Param(
+      'id',
+      new ParseIntPipe({ errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE }),
+    )
+    id: number,
+  ) {
+    return this.catsService.findOne(id);
   }
 }

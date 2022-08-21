@@ -12,18 +12,25 @@ import {
   Param,
   ParseIntPipe,
   Query,
+  UseGuards,
+  SetMetadata,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cats3Service } from './cats3.service';
 import { Cat } from './interfaces/cat3.interface';
 import { ForbiddenException } from 'src/forbidden.exception';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { RolesGuard } from 'src/roles.guard';
+import { Roles } from 'src/roles.decorators';
 
 @Controller('cats3')
+@UseGuards(RolesGuard /*new RolesGuard */)
 export class Cats3Controller {
   constructor(private catsService: Cats3Service) {}
 
   @Post()
+  //@SetMetadata('roles', ['admin'])
+  @Roles('admin')
   async create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }

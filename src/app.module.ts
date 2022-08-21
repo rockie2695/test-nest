@@ -10,6 +10,11 @@ import { Cats3Controller } from './cats3/cats3.controller';
 import { Cats3Module } from './cats3/cats3.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
 
+/*
+const app = await NestFactory.create(AppModule);
+app.useGlobalGuards(new RolesGuard());
+*/
+
 @Module({
   imports: [
     TypeOrmModule.forRoot({
@@ -30,7 +35,13 @@ import { LoggerMiddleware } from './common/middleware/logger.middleware';
     Cats2Controller,
     Cats3Controller,
   ],
-  providers: [AppService, Cats3Service],
+  providers: [
+    AppService,
+    Cats3Service /*{
+    provide: APP_GUARD,
+    useClass: RolesGuard,
+  }*/,
+  ],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

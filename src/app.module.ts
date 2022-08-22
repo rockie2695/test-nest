@@ -2,14 +2,14 @@ import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CatsController } from './cats/cats.controller';
-import { TypeOrmModule } from '@nestjs/typeorm';
+//import { TypeOrmModule } from '@nestjs/typeorm';
 //import { DataSource } from 'typeorm';
 import { Cats2Controller } from './cats2/cats2.controller';
 import { Cats3Service } from './cats3/cats3.service';
 import { Cats3Controller } from './cats3/cats3.controller';
 import { Cats3Module } from './cats3/cats3.module';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
-
+//import { APP_INTERCEPTOR } from '@nestjs/core';
 /*
 const app = await NestFactory.create(AppModule);
 app.useGlobalGuards(new RolesGuard());
@@ -17,7 +17,7 @@ app.useGlobalGuards(new RolesGuard());
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
+    /*TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'remotemysql.com',
       port: 3306,
@@ -26,7 +26,7 @@ app.useGlobalGuards(new RolesGuard());
       database: 'idgD8hWqXq',
       entities: [],
       synchronize: true,
-    }),
+    }),*/
     Cats3Module,
   ],
   controllers: [
@@ -38,9 +38,15 @@ app.useGlobalGuards(new RolesGuard());
   providers: [
     AppService,
     Cats3Service /*{
-    provide: APP_GUARD,
+    provide: APP_GUARD, //when use gloabl guards in main.ts you need to add this 
     useClass: RolesGuard,
   }*/,
+    /*
+     {
+      provide: APP_INTERCEPTOR, //when use gloabl interceptor in main.ts you need to add this 
+      useClass: LoggingInterceptor,
+    },
+     */
   ],
 })
 export class AppModule {

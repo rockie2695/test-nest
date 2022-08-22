@@ -14,6 +14,7 @@ import {
   Query,
   UseGuards,
   SetMetadata,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { Cats3Service } from './cats3.service';
@@ -22,9 +23,11 @@ import { ForbiddenException } from 'src/forbidden.exception';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { RolesGuard } from 'src/roles.guard';
 import { Roles } from 'src/roles.decorators';
+import { LoggingInterceptor } from 'src/logging.interceptor';
 
 @Controller('cats3')
 @UseGuards(RolesGuard /*new RolesGuard */)
+@UseInterceptors(LoggingInterceptor /*new LoggingInterceptor */)
 export class Cats3Controller {
   constructor(private catsService: Cats3Service) {}
 
